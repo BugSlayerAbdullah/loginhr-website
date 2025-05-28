@@ -527,7 +527,7 @@ const Home = () => {
       {/* Stats Section */}
       <div
         ref={statsRef}
-        className="relative py-16 bg-white overflow-hidden px-4"
+        className="relative py-20 bg-white overflow-hidden px-4"
       >
 
         <div className="container-custom mx-auto relative z-10">
@@ -567,7 +567,7 @@ const Home = () => {
       </div>
 
       {/* Features Section */}
-      <div className="py-16 bg-gradient-to-b from-white to-primary-foreground/5">
+      <div className="py-20 bg-gradient-to-b from-white to-primary-foreground/5">
         <div className="container-custom mx-auto">
           <div className="text-center mb-16">
             <h2 className="gsap-reveal section-title text-loginhr-900">{t("home.solutions.title")}</h2>

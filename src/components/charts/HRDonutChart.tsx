@@ -52,7 +52,7 @@ const HRDonutChart: React.FC<DonutChartProps> = ({ data, title }) => {
       type: "pie",
       options3d: {
         enabled: true,
-        alpha: 50,
+        alpha: 60,
         beta: 0
       },
       style: {
@@ -66,7 +66,7 @@ const HRDonutChart: React.FC<DonutChartProps> = ({ data, title }) => {
     plotOptions: {
       pie: {
         innerSize: "30%",
-        depth: 60,
+        depth: 70,
         dataLabels: {
           enabled: false
         },

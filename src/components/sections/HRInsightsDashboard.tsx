@@ -167,7 +167,7 @@ const HRInsightsDashboard: React.FC = () => {
         </div>
 
         {/* Charts Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="chart-card">
             <HRDonutChart
               data={employeeDistribution}
