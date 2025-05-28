@@ -1,17 +1,34 @@
+"use client";
 
-import React from "react";
-import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer,
-  Legend
-} from "recharts";
+import React, { useRef, useEffect } from "react";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { ChartBar } from "lucide-react";
+
+// Initialize Highcharts modules
+
+import * as Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import HighchartsMore from 'highcharts/highcharts-more';
+import Highcharts3D from 'highcharts/highcharts-3d';
+import HighchartsTreemap from 'highcharts/modules/treemap';
+import HighchartsHeatmap from 'highcharts/modules/heatmap';
+import HighchartsNetworkgraph from 'highcharts/modules/networkgraph';
+import HighchartsSankey from 'highcharts/modules/sankey';
+import Cylinder from 'highcharts/modules/cylinder';
+import HighchartsStock from 'highcharts/modules/stock';
+import HighchartsStreamgraph from 'highcharts/modules/streamgraph';
+
+if (typeof window !== 'undefined') {
+  HighchartsMore(Highcharts);
+  Highcharts3D(Highcharts);
+  HighchartsTreemap(Highcharts);
+  Cylinder(Highcharts);
+  HighchartsStock(Highcharts);
+  HighchartsHeatmap(Highcharts);
+  HighchartsNetworkgraph(Highcharts);
+  HighchartsSankey(Highcharts);
+  HighchartsStreamgraph(Highcharts);
+}
 
 interface HRBarChartProps {
   data: Array<{
@@ -30,7 +47,108 @@ const HRBarChart: React.FC<HRBarChartProps> = ({
   title,
   color = "#6366f1"
 }) => {
-  const { direction } = useLanguage();
+  const { language, direction } = useLanguage();
+  const chartRef = useRef<HighchartsReact.RefObject>(null);
+
+  // Format data for Highcharts
+  const seriesData = data.map(item => item[dataKey]);
+  const categories = data.map(item => item.name);
+
+  const options: Highcharts.Options = {
+    chart: {
+      type: "column",
+      options3d: {
+        enabled: true,
+        alpha: 20,
+        beta: 20,
+        depth: 80,
+        viewDistance: 13
+      },
+      style: {
+        fontFamily: "inherit"
+      },
+      height: "100%",
+      inverted: direction === "rtl"
+    },
+    title: {
+      text: undefined
+    },
+    xAxis: {
+      categories: categories,
+      labels: {
+        style: {
+          fontSize: "12px"
+        }
+      },
+      reversed: direction === "rtl"
+    },
+    yAxis: {
+      title: {
+        text: null
+      },
+      labels: {
+        style: {
+          fontSize: "12px"
+        }
+      }
+    },
+    tooltip: {
+      formatter: function() {
+        return `<b>${this.x}</b><br/>${this.y}${language === "en" ? "%" : "%"}`;
+      },
+      style: {
+        fontSize: "12px"
+      },
+      backgroundColor: "rgba(255, 255, 255, 0.95)",
+      borderWidth: 0,
+      borderRadius: 8,
+      shadow: true
+    },
+    plotOptions: {
+      column: {
+        depth: 25,
+        colorByPoint: false,
+        color: color,
+        borderRadius: 4,
+        borderWidth: 0,
+        states: {
+          hover: {
+            brightness: 0.1
+          }
+        }
+      }
+    },
+    legend: {
+      enabled: false
+    },
+    credits: {
+      enabled: false
+    },
+    series: [{
+      type: "column",
+      name: title,
+      data: seriesData
+    }]
+  };
+
+  // Update chart on language or direction change
+  useEffect(() => {
+    if (chartRef.current && chartRef.current.chart) {
+      chartRef.current.chart.update({
+        chart: {
+          inverted: direction === "rtl"
+        },
+        xAxis: {
+          reversed: direction === "rtl"
+        },
+        tooltip: {
+          formatter: function() {
+            return `<b>${this.x}</b><br/>${this.y}${language === "en" ? "%" : "%"}`;
+          }
+        }
+      });
+    }
+  }, [language, direction]);
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 h-full flex flex-col">
@@ -42,48 +160,12 @@ const HRBarChart: React.FC<HRBarChartProps> = ({
       </div>
       
       <div className="flex-1">
-        <ResponsiveContainer width="100%" height="100%" minHeight={200}>
-          <BarChart
-            data={data}
-            layout={direction === "rtl" ? "vertical" : "horizontal"}
-            margin={{
-              top: 20,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-            {direction === "rtl" ? (
-              <>
-                <XAxis type="number" />
-                <YAxis dataKey="name" type="category" tick={{ fontSize: 12 }} />
-              </>
-            ) : (
-              <>
-                <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-                <YAxis type="number" />
-              </>
-            )}
-            <Tooltip
-              cursor={{ fill: "rgba(0, 0, 0, 0.05)" }}
-              contentStyle={{
-                borderRadius: "8px",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                border: "none",
-              }}
-            />
-            <Legend />
-            <Bar 
-              dataKey={dataKey} 
-              fill={color} 
-              radius={[4, 4, 0, 0]} 
-              animationDuration={1500}
-              animationEasing="ease-out"
-              className="hover:opacity-80 transition-opacity"
-            />
-          </BarChart>
-        </ResponsiveContainer>
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={options}
+          ref={chartRef}
+          containerProps={{ style: { height: "100%", minHeight: "200px" } }}
+        />
       </div>
     </div>
   );

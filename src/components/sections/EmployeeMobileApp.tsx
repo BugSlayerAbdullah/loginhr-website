@@ -132,7 +132,7 @@ const EmployeeMobileApp = () => {
   return (
     <div 
       ref={sectionRef}
-      className="py-20 md:py-28 bg-gradient-to-br from-loginhr-50 via-white to-loginhr-50 overflow-hidden"
+      className="py-20 md:py-28 bg-gradient-to-br from-white to-primary-foreground/5 overflow-hidden"
     >
       <div className="container-custom mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -147,7 +147,7 @@ const EmployeeMobileApp = () => {
                 <div className="bg-white rounded-[24px] overflow-hidden aspect-[9/19]">
                   {/* Phone notch */}
                   <div className="bg-loginhr-950 h-6 w-24 mx-auto rounded-b-xl flex items-center justify-center">
-                    <div className="h-1.5 w-1.5 bg-loginhr-700 rounded-full mx-1"></div>
+                    <div className="h-2 w-2 bg-loginhr-600 rounded-full mx-1"></div>
                   </div>
                   
                   {/* App screen */}
@@ -155,7 +155,7 @@ const EmployeeMobileApp = () => {
                     {/* App header */}
                     <div className="app-screen-element bg-white rounded-xl p-3 shadow-sm mb-3">
                       <div className="flex items-center">
-                        <div className="bg-loginhr-600 h-8 w-8 rounded-lg flex items-center justify-center text-white">
+                        <div className="bg-primary h-8 w-8 rounded-lg flex items-center justify-center text-white">
                           <Smartphone className="h-5 w-5" />
                         </div>
                         <div className="ml-2 rtl:ml-0 rtl:mr-2">
@@ -168,15 +168,15 @@ const EmployeeMobileApp = () => {
                     {/* Dashboard tiles */}
                     <div className="grid grid-cols-2 gap-3 mb-3">
                       <div className="app-screen-element bg-white p-3 rounded-xl shadow-sm">
-                        <div className="h-6 w-6 bg-loginhr-100 mb-2 rounded flex items-center justify-center">
-                          <Clock className="h-3 w-3 text-loginhr-600" />
+                        <div className="h-6 w-6 bg-loginhr-700 mb-2 rounded flex items-center justify-center">
+                          <Clock className="h-3 w-3 text-loginhr-50" />
                         </div>
                         <p className="text-xs font-medium">Leave</p>
                         <p className="text-[10px] text-gray-500">2 pending</p>
                       </div>
                       <div className="app-screen-element bg-white p-3 rounded-xl shadow-sm">
-                        <div className="h-6 w-6 bg-loginhr-100 mb-2 rounded flex items-center justify-center">
-                          <Check className="h-3 w-3 text-loginhr-600" />
+                        <div className="h-6 w-6 bg-loginhr-700 mb-2 rounded flex items-center justify-center">
+                          <Check className="h-3 w-3 text-loginhr-50" />
                         </div>
                         <p className="text-xs font-medium">Attendance</p>
                         <p className="text-[10px] text-gray-500">Check in</p>
@@ -184,7 +184,7 @@ const EmployeeMobileApp = () => {
                     </div>
                     
                     {/* Payslip card */}
-                    <div className="app-screen-element bg-loginhr-600 rounded-xl p-3 text-white mb-3">
+                    <div className="app-screen-element bg-loginhr-700 rounded-xl p-3 text-white mb-3">
                       <div className="flex justify-between items-start">
                         <div>
                           <p className="text-xs font-medium opacity-80">Net Salary</p>
@@ -203,8 +203,8 @@ const EmployeeMobileApp = () => {
                     {/* Profile preview */}
                     <div className="app-screen-element bg-white rounded-xl p-3 shadow-sm">
                       <div className="flex items-center">
-                        <div className="h-8 w-8 bg-loginhr-100 rounded-full flex items-center justify-center">
-                          <UserCircle className="h-4 w-4 text-loginhr-600" />
+                        <div className="h-8 w-8 bg-primary rounded-full flex items-center justify-center">
+                          <UserCircle className="h-4 w-4 text-loginhr-50" />
                         </div>
                         <div className="ml-2 rtl:ml-0 rtl:mr-2">
                           <p className="text-xs font-medium">Profile</p>
@@ -226,9 +226,9 @@ const EmployeeMobileApp = () => {
               <div className="absolute -right-10 top-20 h-24 w-24 bg-loginhr-300 rounded-full opacity-20 blur-xl"></div>
               
               {/* Notification popups */}
-              <div className="app-screen-element absolute -right-16 top-1/4 bg-white p-3 rounded-lg shadow-lg transform rotate-6 z-20 max-w-[180px]">
+              <div className="app-screen-element absolute -right-24 top-1/4 bg-white p-3 rounded-lg shadow-lg transform rotate-6 z-20 max-w-[180px]">
                 <div className="flex items-center">
-                  <div className="h-6 w-6 bg-loginhr-500 rounded-full flex items-center justify-center text-white">
+                  <div className="h-6 w-6 bg-primary rounded-full flex items-center justify-center text-white">
                     <Check className="h-3 w-3" />
                   </div>
                   <div className="ms-2">
@@ -237,9 +237,9 @@ const EmployeeMobileApp = () => {
                   </div>
                 </div>
               </div>
-              <div className="app-screen-element absolute -left-16 top-2/3 bg-white p-3 rounded-lg shadow-lg transform -rotate-3 z-20 max-w-[180px]">
+              <div className="app-screen-element absolute -left-16 top-3/4 bg-white p-3 rounded-lg shadow-lg transform -rotate-3 z-20 max-w-[180px]">
                 <div className="flex items-center">
-                  <div className="h-6 w-6 bg-loginhr-600 rounded-full flex items-center justify-center text-white">
+                  <div className="h-6 w-6 bg-primary rounded-full flex items-center justify-center text-white">
                     <FileText className="h-3 w-3" />
                   </div>
                   <div className="ml-2 rtl:ml-0 rtl:mr-2">
@@ -292,7 +292,7 @@ const EmployeeMobileApp = () => {
               <Button 
                 variant="default" 
                 size="lg"
-                className="store-button bg-black hover:bg-gray-900 flex items-center justify-center py-6"
+                className="store-button bg-black hover:bg-gray-900 text-loginhr-50 flex items-center justify-center py-6"
               >
                 <div className="mr-2 rtl:ml-2 rtl:mr-0">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
@@ -308,7 +308,7 @@ const EmployeeMobileApp = () => {
               <Button 
                 variant="default" 
                 size="lg"
-                className="store-button bg-black hover:bg-gray-900 flex items-center justify-center py-6"
+                className="store-button bg-black hover:bg-gray-900 text-loginhr-50 flex items-center justify-center py-6"
               >
                 <div className="mr-2 rtl:ml-2 rtl:mr-0">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">

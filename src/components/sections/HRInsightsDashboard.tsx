@@ -18,65 +18,25 @@ const HRInsightsDashboard: React.FC = () => {
 
   // Simulated data for the charts
   const employeeDistribution = [
-    { name: language === "en" ? "Engineering" : "هندسة", value: 40, color: "#4f46e5" },
-    { name: language === "en" ? "Sales" : "مبيعات", value: 30, color: "#0ea5e9" },
-    { name: language === "en" ? "Support" : "دعم", value: 15, color: "#10b981" },
-    { name: language === "en" ? "Management" : "إدارة", value: 15, color: "#f59e0b" },
+    { name: language === "en" ? "Engineering" : "هندسة", value: 20, color: "#4e2e73" },
+    { name: language === "en" ? "Sales" : "مبيعات", value: 18, color: "#5a3485" },
+    { name: language === "en" ? "Support" : "دعم", value: 15, color: "#663a96" },
+    { name: language === "en" ? "Management" : "إدارة", value: 12, color: "#6a3d9a" },
+    { name: language === "en" ? "Marketing" : "تسويق", value: 10, color: "#7e52a6" },
+    { name: language === "en" ? "HR" : "الموارد البشرية", value: 8, color: "#9267b2" },
+    { name: language === "en" ? "Finance" : "مالية", value: 7, color: "#a67cbe" },
+    { name: language === "en" ? "Legal" : "قانونية", value: 5, color: "#bb91ca" },
+    { name: language === "en" ? "IT" : "تقنية المعلومات", value: 3, color: "#cfaae0" },
+    { name: language === "en" ? "Operations" : "العمليات", value: 2, color: "#e4c2f5" },
   ];
 
   const performanceData = [
-    { name: language === "en" ? "Jan" : "يناير", value: 68 },
-    { name: language === "en" ? "Feb" : "فبراير", value: 72 },
-    { name: language === "en" ? "Mar" : "مارس", value: 75 },
-    { name: language === "en" ? "Apr" : "أبريل", value: 73 },
+    { name: language === "en" ? "Jan" : "يناير", value: 90 },
+    { name: language === "en" ? "Feb" : "فبراير", value: 70 },
+    { name: language === "en" ? "Mar" : "مارس", value: 95 },
+    { name: language === "en" ? "Apr" : "أبريل", value: 60 },
     { name: language === "en" ? "May" : "مايو", value: 80 },
-    { name: language === "en" ? "Jun" : "يونيو", value: 82 },
-  ];
-
-  const recruitmentData = [
-    { name: language === "en" ? "Q1" : "ر١", applications: 150, hires: 45 },
-    { name: language === "en" ? "Q2" : "ر٢", applications: 200, hires: 60 },
-    { name: language === "en" ? "Q3" : "ر٣", applications: 180, hires: 50 },
-    { name: language === "en" ? "Q4" : "ر٤", applications: 220, hires: 70 },
-  ];
-
-  const engagementTrendsData = [
-    {
-      name: language === "en" ? "Jan" : "يناير",
-      satisfaction: 72,
-      retention: 85,
-      engagement: 70
-    },
-    {
-      name: language === "en" ? "Feb" : "فبراير",
-      satisfaction: 75,
-      retention: 83,
-      engagement: 72
-    },
-    {
-      name: language === "en" ? "Mar" : "مارس",
-      satisfaction: 78,
-      retention: 85,
-      engagement: 75
-    },
-    {
-      name: language === "en" ? "Apr" : "أبريل",
-      satisfaction: 80,
-      retention: 88,
-      engagement: 79
-    },
-    {
-      name: language === "en" ? "May" : "مايو",
-      satisfaction: 85,
-      retention: 90,
-      engagement: 84
-    },
-    {
-      name: language === "en" ? "Jun" : "يونيو",
-      satisfaction: 88,
-      retention: 92,
-      engagement: 86
-    },
+    { name: language === "en" ? "Jun" : "يونيو", value: 70 },
   ];
 
   useEffect(() => {
@@ -140,7 +100,7 @@ const HRInsightsDashboard: React.FC = () => {
   return (
     <div
       ref={sectionRef}
-      className="py-24 bg-gradient-to-b from-white to-loginhr-50 overflow-hidden"
+      className="py-24 bg-gradient-to-b from-white to-primary-foreground/5 overflow-hidden"
     >
       <div className="container-custom mx-auto">
         {/* Section Header */}
@@ -208,31 +168,24 @@ const HRInsightsDashboard: React.FC = () => {
 
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="chart-card h-80">
+          <div className="chart-card">
             <HRDonutChart
               data={employeeDistribution}
               title={language === "en" ? "Employee Distribution" : "توزيع الموظفين"}
             />
           </div>
 
-          <div className="chart-card h-80">
+          <div className="chart-card">
             <HRBarChart
               data={performanceData}
               dataKey="value"
               title={language === "en" ? "Performance Metrics" : "مقاييس الأداء"}
-              color="#6366f1"
+              color="#6a3d9a"
             />
           </div>
 
-          <div className="chart-card lg:col-span-2 h-80">
+          <div className="chart-card lg:col-span-2">
             <HRLineChart
-              data={engagementTrendsData}
-              lines={[
-                { dataKey: "satisfaction", color: "#4f46e5", name: language === "en" ? "Satisfaction" : "الرضا" },
-                { dataKey: "retention", color: "#10b981", name: language === "en" ? "Retention" : "الاحتفاظ" },
-                { dataKey: "engagement", color: "#f59e0b", name: language === "en" ? "Engagement" : "المشاركة" }
-              ]}
-              title={language === "en" ? "Employee Trends" : "اتجاهات الموظفين"}
             />
           </div>
         </div>

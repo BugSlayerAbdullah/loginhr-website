@@ -1,8 +1,31 @@
+"use client";
 
-import React, { useState } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
+import React, { useRef, useEffect } from "react";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { Activity } from "lucide-react";
+import * as Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import HighchartsMore from 'highcharts/highcharts-more';
+import Highcharts3D from 'highcharts/highcharts-3d';
+import HighchartsTreemap from 'highcharts/modules/treemap';
+import HighchartsHeatmap from 'highcharts/modules/heatmap';
+import HighchartsNetworkgraph from 'highcharts/modules/networkgraph';
+import HighchartsSankey from 'highcharts/modules/sankey';
+import Cylinder from 'highcharts/modules/cylinder';
+import HighchartsStock from 'highcharts/modules/stock';
+import HighchartsStreamgraph from 'highcharts/modules/streamgraph';
+
+if (typeof window !== 'undefined') {
+  HighchartsMore(Highcharts);
+  Highcharts3D(Highcharts);
+  HighchartsTreemap(Highcharts);
+  Cylinder(Highcharts);
+  HighchartsStock(Highcharts);
+  HighchartsHeatmap(Highcharts);
+  HighchartsNetworkgraph(Highcharts);
+  HighchartsSankey(Highcharts);
+  HighchartsStreamgraph(Highcharts);
+}
 
 interface DonutChartProps {
   data: Array<{
@@ -15,15 +38,86 @@ interface DonutChartProps {
 
 const HRDonutChart: React.FC<DonutChartProps> = ({ data, title }) => {
   const { language } = useLanguage();
-  const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
+  const chartRef = useRef<HighchartsReact.RefObject>(null);
 
-  const onPieEnter = (_: any, index: number) => {
-    setActiveIndex(index);
+  // Format data for Highcharts
+  const seriesData = data.map(item => ({
+    name: item.name,
+    y: item.value,
+    color: item.color
+  }));
+
+  const options: Highcharts.Options = {
+    chart: {
+      type: "pie",
+      options3d: {
+        enabled: true,
+        alpha: 50,
+        beta: 0
+      },
+      style: {
+        fontFamily: "inherit"
+      },
+      height: "100%"
+    },
+    title: {
+      text: undefined
+    },
+    plotOptions: {
+      pie: {
+        innerSize: "30%",
+        depth: 60,
+        dataLabels: {
+          enabled: false
+        },
+        showInLegend: true,
+        states: {
+          hover: {
+            brightness: 0.1
+          }
+        },
+        borderWidth: 0
+      }
+    },
+    tooltip: {
+      pointFormat: `<b>{point.percentage:.1f}${language === "en" ? "%" : "%"}</b>`,
+      style: {
+        fontSize: "12px"
+      },
+      backgroundColor: "rgba(255, 255, 255, 0.95)",
+      borderWidth: 0,
+      borderRadius: 8,
+      shadow: true
+    },
+    legend: {
+      enabled: true,
+      itemStyle: {
+        fontSize: "12px",
+        fontWeight: "normal",
+        color: "#666"
+      },
+      symbolRadius: 4
+    },
+    credits: {
+      enabled: false
+    },
+    series: [{
+      type: "pie",
+      name: title,
+      data: seriesData
+    }]
   };
 
-  const onPieLeave = () => {
-    setActiveIndex(undefined);
-  };
+  // Update chart on language change
+  useEffect(() => {
+    if (chartRef.current && chartRef.current.chart) {
+      chartRef.current.chart.update({
+        tooltip: {
+          pointFormat: `<b>{point.percentage:.1f}${language === "en" ? "%" : "%"}</b>`
+        }
+      });
+    }
+  }, [language]);
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 h-full flex flex-col">
@@ -33,59 +127,14 @@ const HRDonutChart: React.FC<DonutChartProps> = ({ data, title }) => {
         </div>
         <h3 className="font-bold text-lg text-loginhr-900">{title}</h3>
       </div>
-      
+
       <div className="flex-1">
-        <ResponsiveContainer width="100%" height="100%" minHeight={200}>
-          <PieChart>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={80}
-              paddingAngle={2}
-              dataKey="value"
-              onMouseEnter={onPieEnter}
-              onMouseLeave={onPieLeave}
-              animationDuration={800}
-              animationEasing="ease-out"
-            >
-              {data.map((entry, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
-                  fill={entry.color}
-                  opacity={activeIndex === undefined || activeIndex === index ? 1 : 0.7}
-                  stroke="white"
-                  strokeWidth={activeIndex === index ? 2 : 1} 
-                  className="transition-all duration-200"
-                  style={{
-                    filter: activeIndex === index ? "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.2))" : "none",
-                    transform: activeIndex === index ? "scale(1.05)" : "scale(1)",
-                    transition: "transform 0.2s, filter 0.2s, opacity 0.2s"
-                  }}
-                />
-              ))}
-            </Pie>
-            <Tooltip
-              formatter={(value: number) => language === "en" ? `${value}%` : `%${value}`}
-              contentStyle={{
-                borderRadius: "8px",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                border: "none",
-                padding: "8px 12px"
-              }}
-            />
-            <Legend 
-              verticalAlign="bottom" 
-              height={36} 
-              iconType="circle" 
-              iconSize={8}
-              formatter={(value) => (
-                <span className="text-xs font-medium text-gray-600">{value}</span>
-              )}
-            />
-          </PieChart>
-        </ResponsiveContainer>
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={options}
+          ref={chartRef}
+          containerProps={{ style: { height: "100%", minHeight: "200px" } }}
+        />
       </div>
     </div>
   );

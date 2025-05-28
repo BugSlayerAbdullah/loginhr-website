@@ -527,9 +527,9 @@ const Home = () => {
       {/* Stats Section */}
       <div
         ref={statsRef}
-        className="relative py-20 bg-white overflow-hidden px-4"
+        className="relative py-16 bg-white overflow-hidden px-4"
       >
- 
+
         <div className="container-custom mx-auto relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold text-loginhr-800 mb-4 tracking-tight drop-shadow stats-title">
@@ -549,7 +549,7 @@ const Home = () => {
             ].map((stat, idx) => (
               <div
                 key={idx}
-                className="cursor-default border-b-4 border-loginhr-600 group bg-white/20 backdrop-blur-md hover:bg-white/40 hover:scale-105 transition-all duration-500 border rounded-3xl p-10 flex flex-col items-center text-center relative overflow-hidden"
+                className="cursor-default group bg-white/20 backdrop-blur-md hover:bg-white/40 hover:scale-105 transition-all duration-500 border rounded-3xl p-10 flex flex-col items-center text-center relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-loginhr-50 opacity-10 group-hover:opacity-0 transition-opacity duration-300 pointer-events-none" />
                 <div className="flex items-center justify-center mb-6 w-16 h-16 bg-loginhr-100 group-hover:bg-primary text-primary group-hover:text-white rounded-full transition-all duration-300 shadow-inner">
@@ -567,7 +567,7 @@ const Home = () => {
       </div>
 
       {/* Features Section */}
-      <div className="py-24 bg-gradient-to-b from-white to-loginhr-50">
+      <div className="py-16 bg-gradient-to-b from-white to-primary-foreground/5">
         <div className="container-custom mx-auto">
           <div className="text-center mb-16">
             <h2 className="gsap-reveal section-title text-loginhr-900">{t("home.solutions.title")}</h2>
@@ -578,7 +578,7 @@ const Home = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="feature-card bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all border-t-4 border-loginhr-600 group"
+                className="feature-card bg-white  shadow-md p-8 border rounded-3xl hover:shadow-lg transition-all  group"
               >
                 <div className="mb-6 bg-loginhr-50 p-4 rounded-xl inline-block group-hover:bg-loginhr-100 transition-colors">
                   {feature.icon}
@@ -607,61 +607,60 @@ const Home = () => {
           </div>
         </div>
       </div>
+      {/* Employee Mobile App Section */}
+      <EmployeeMobileApp />
 
       {/* Insert HR Analytics Dashboard Section */}
       <HRInsightsDashboard />
 
-      {/* Employee Mobile App Section */}
-      <EmployeeMobileApp />
-
-      {/* Client Logo Carousel Section */}
-      <ClientLogoCarousel />
-
-
       {/* Testimonial Section */}
-      {/* <div className="py-24 bg-loginhr-50">
+      <div className="py-24 bg-gradient-to-b from-white to-primary-foreground/5">
         <div className="container-custom mx-auto">
           <div className="text-center mb-16">
             <h2 className="gsap-reveal section-title text-loginhr-900">{t("home.testimonials.title")}</h2>
           </div>
-          
-          <div className="max-w-4xl mx-auto bg-white rounded-2xl p-10 md:p-12 shadow-xl gsap-reveal border-t-4 border-loginhr-600">
+
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl p-10 md:p-12 shadow-md gsap-reveal border-t-4 border-loginhr-600">
             <div className="flex flex-col md:flex-row items-center">
               <div className="mb-8 md:mb-0 md:mr-8 rtl:mr-0 rtl:ml-8">
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-loginhr-100 shadow-md mx-auto">
-                  <img 
-                    src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158" 
-                    alt="Client" 
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-1 border-loginhr-100 shadow-md mx-auto">
+                  <img
+                    src="/kareem.jpg"
+                    alt="Client"
                     className="w-full h-full object-cover"
                   />
                 </div>
               </div>
               <div className="flex-1">
                 <div className="text-loginhr-600 mb-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
                     <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
                   </svg>
                 </div>
-                <p className="text-xl md:text-2xl text-loginhr-900 mb-8 font-light leading-relaxed italic">
-                  {language === "en" 
-                    ? "LoginHR has transformed our HR processes. What used to take days now takes minutes, and our employees are much happier with the streamlined experience."
+                <p className="text-md text-loginhr-900 mb-8 font-light leading-relaxed italic">
+                  {language === "en"
+                    ? "As a systems administrator in MasryaGroup (FlamingoHyperMarket ,Abdulaziz stores,Masrya Market ,Masrya Trading),  I'll talk about the I.T department. It's one of the strongest systems I've seen for HR and technical support. They know what they're doing. Thanks, Login HR."
                     : "لقد غيرت LoginHR عمليات الموارد البشرية لدينا. ما كان يستغرق أياماً أصبح يستغرق دقائق، وموظفونا أكثر سعادة بالتجربة المبسطة."
                   }
                 </p>
                 <div className="border-t border-loginhr-100 pt-6">
                   <h4 className="font-bold text-loginhr-900 text-lg">
-                    {language === "en" ? "Sarah Johnson" : "سارة جونسون"}
+                    {language === "en" ? "Kareeem Mokbel" : "كريم مقبل"}
                   </h4>
                   <p className="text-loginhr-600">
-                    {language === "en" ? "HR Director, Global Solutions Inc." : "مديرة الموارد البشرية، شركة الحلول العالمية"}
+                    {language === "en" ? "System Administrator." : "مديرة الموارد البشرية، شركة الحلول العالمية"}
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
+
+
+      {/* Client Logo Carousel Section */}
+      <ClientLogoCarousel />
     </>
   );
 };
