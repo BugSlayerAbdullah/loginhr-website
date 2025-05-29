@@ -105,10 +105,10 @@ const HRInsightsDashboard: React.FC = () => {
       <div className="container-custom mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 ref={headingRef} className="section-title">
+          <h2 ref={headingRef} className="section-title text-loginhr-800">
             {(language === "en" ? "Data-Driven HR Insights" : "تحليل بيانات الموارد البشرية")}
           </h2>
-          <p ref={descriptionRef} className="section-subtitle">
+          <p ref={descriptionRef} className="section-subtitle text-loginhr-600">
             {(language === "en"
               ? "Make better decisions with real-time analytics and interactive data visualizations"
               : "اتخذ قرارات أفضل باستخدام التحليلات في الوقت الفعلي وتصورات البيانات التفاعلية")}
